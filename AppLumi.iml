@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src_cpy" isTestSource="false" />
+    </content>
+    <orderEntry type="jdk" jdkName="openjdk-21" jdkType="JavaSDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library" exported="">
+      <library name="lib">
+        <CLASSES>
+          <root url="file://$USER_HOME$/Downloads/javafx-sdk-21.0.2/lib" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$USER_HOME$/Downloads/javafx-sdk-21.0.2/lib" recursive="false" />
+      </library>
+    </orderEntry>
+    <orderEntry type="library" name="apache.poi" level="project" />
+    <orderEntry type="library" name="apache.poi.ooxml.lite" level="project" />
+    <orderEntry type="module-library" exported="">
+      <library name="java">
+        <CLASSES />
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/lib/java" />
+          <root url="file://$MODULE_DIR$/lib/java1" />
+          <root url="file://$MODULE_DIR$/lib/java2" />
+          <root url="file://$MODULE_DIR$/lib/java3" />
+          <root url="file://$MODULE_DIR$/lib/java4" />
+          <root url="file://$MODULE_DIR$/lib/java5" />
+          <root url="file://$MODULE_DIR$/lib/java6" />
+          <root url="file://$MODULE_DIR$/lib/java7" />
+          <root url="file://$MODULE_DIR$/lib/java8" />
+          <root url="file://$MODULE_DIR$/lib/java9" />
+          <root url="file://$MODULE_DIR$/lib/java10" />
+          <root url="file://$MODULE_DIR$/lib/java11" />
+          <root url="file://$MODULE_DIR$/lib/java12" />
+          <root url="file://$MODULE_DIR$/lib/java13" />
+          <root url="file://$MODULE_DIR$/lib/java14" />
+          <root url="file://$MODULE_DIR$/lib/java15" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="library" exported="" name="apache.poi.ooxml" level="project" />
+    <orderEntry type="library" exported="" name="apache.logging.log4j.core" level="project" />
+    <orderEntry type="library" exported="" name="mysql.connector.j" level="project" />
+  </component>
+</module>

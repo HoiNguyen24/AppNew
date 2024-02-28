@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<DialogPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="437.0" prefWidth="760.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+    <header>
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="45.0" prefWidth="760.0">
+         <children>
+            <Label fx:id="on_add" layoutX="30.0" layoutY="2.0" minWidth="700.0" prefHeight="39.0" prefWidth="700.0" text="Label" />
+         </children></AnchorPane>
+    </header>
+    <content>
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="320.0">
+         <children>
+            <Label layoutX="53.0" layoutY="82.0" text="SKU:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="52.0" layoutY="71.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="54.0" layoutY="122.0" text="Tên sản phẩm:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="54.0" layoutY="171.0" text="Tên áo trơn:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="51.0" layoutY="217.0" text="Màu áo trơn:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="53.0" layoutY="266.0" text="Size:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="product_sku" layoutX="153.0" layoutY="79.0" />
+            <TextField fx:id="product_name" layoutX="153.0" layoutY="120.0" />
+            <TextField fx:id="cloth_name" layoutX="153.0" layoutY="169.0" />
+            <TextField fx:id="cloth_color" layoutX="153.0" layoutY="215.0" />
+            <TextField fx:id="cloth_size" layoutX="153.0" layoutY="264.0" />
+            <TextArea fx:id="decal_str" layoutX="416.0" layoutY="120.0" prefHeight="77.0" prefWidth="200.0" />
+            <Label layoutX="416.0" layoutY="82.0" text="Hình in:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Button layoutX="475.0" layoutY="79.0" mnemonicParsing="false" onAction="#add_decal" text="Thêm" />
+         </children></AnchorPane>
+    </content>
+    <expandableContent>
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="320.0" />
+    </expandableContent>
+</DialogPane>
