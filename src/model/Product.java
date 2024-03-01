@@ -82,4 +82,9 @@ public class Product {
     public void setFile_decal_name(String file_decal_name) {
         this.file_decal_name = file_decal_name;
     }
+
+    @Override
+    public String toString() {
+        return clothes_name+","+size+","+color+","+quantity;
+    }
 }

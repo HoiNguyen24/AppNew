@@ -1,29 +1,23 @@
 package src;
 
+import javafx.scene.Parent;
 import src.model.Decal;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.*;
 
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Connection connection = null;
         Statement statement = null;
-        try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/lumiapp","root","admin");
-            statement = connection.createStatement();
-            String a = "một";
-            String str = "INSERT INTO product values (?,?,?,?,?)";
-            PreparedStatement stmt = connection.prepareStatement(str);
-            stmt.setString(1,a);
-            stmt.setString(2,a);
-            stmt.setString(3,a);
-            stmt.setString(4,a);
-            stmt.setString(5,a);
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        File folder = new File("image/1");
+        for (File file: folder.listFiles()){
+            System.out.println(file.getPath());
         }
     }
 }

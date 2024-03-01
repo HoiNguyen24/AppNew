@@ -21,8 +21,10 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.commons.io.FileUtils;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import src.manager.FileProductManager;
 
 
@@ -33,17 +35,22 @@ import src.model.Product;
 import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MainController extends Application implements Initializable {
-
+    private File file;
     FileProductManager fileProductManager = new FileProductManager();
      @FXML
     TableView<Product> tableView ;
@@ -119,7 +126,7 @@ public class MainController extends Application implements Initializable {
                         String[] arr = var.split(",");
                         System.out.println(sku + name + var);
                         if(arr.length == 2)
-                        fileProductManager.add(new FileProductList(sku,name,arr[0],arr[1]));
+                            fileProductManager.add(new FileProductList(sku,name,arr[0],arr[1]));
                         else
                             fileProductManager.add(new FileProductList(sku,name,arr[0],"default"));
                     }
@@ -133,11 +140,10 @@ public class MainController extends Application implements Initializable {
         fileChooser.setTitle("Chọn file đơn hàng: ");
         FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Excel file","*.xlsx");
         fileChooser.getExtensionFilters().add(filter);
-        File file = fileChooser.showOpenDialog(new Stage());
+        this.file = fileChooser.showOpenDialog(new Stage());
         System.out.println(file.getAbsolutePath());
         if(file != null){
             input_product(file);
-            create_listProduct(file);
         }
     }
     private ArrayList<FileProductList> check_product(ArrayList<FileProductList> fileProductLists) throws SQLException {
@@ -147,9 +153,9 @@ public class MainController extends Application implements Initializable {
         for (int  i = 0 ; i < fileProductLists.size();i++){
             try{
                 ResultSet resultSet = statement.executeQuery("SELECT * FROM product where sku =" + fileProductLists.get(i).getSku());
-                resultSet.wasNull();
+                if(!resultSet.next())
+                 back.add(fileProductLists.get(i));
             }catch (Exception e){
-                back.add(fileProductLists.get(i));
             }
         }
         return back;
@@ -229,8 +235,10 @@ public class MainController extends Application implements Initializable {
             Statement statement = null;
             try {
                 connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/lumiapp","root","admin");
-                statement = connection.createStatement();
-                statement.executeUpdate("INSERT INTO decals values ("+decal.get().getId()+","+decal.get().getId()+")");
+                PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO decals values (?,?)");
+                preparedStatement.setString(1,String.valueOf(decal.get().getId()));
+                preparedStatement.setString(2,decal.get().getName());
+                preparedStatement.executeUpdate();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
@@ -294,7 +302,7 @@ public class MainController extends Application implements Initializable {
         decal_list.clear();
     }
     private ArrayList<Product> products = new ArrayList<>();
-    public void create_listProduct(File file) throws IOException{
+    public void create_listProduct() throws IOException{
         Workbook workbook;
         FileInputStream fins = null;
         try {
@@ -322,9 +330,8 @@ public class MainController extends Application implements Initializable {
                         quantity = value;
                         try {
                             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/lumiapp","root","admin");
-                            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO orders values (?,?)");
+                            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO orders values (?,"+Long.parseLong(quantity)+")");
                             preparedStatement.setString(1,sku);
-                            preparedStatement.setString(2,quantity);
                             preparedStatement.executeUpdate();
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
@@ -367,6 +374,42 @@ public class MainController extends Application implements Initializable {
             if(bool){
             }
         });
+    }
+    public void out_cloth() throws IOException {
+           create_listProduct();
+           String filePath = "cloth"+file.getName();
+           File file = new File(filePath);
+           if(file.exists())
+               System.out.println("create");
+           Workbook workbook = new XSSFWorkbook();
+           Sheet sheet = workbook.createSheet("Danh sách áo trơn");
+           Row row = null;
+           Cell cell = null;
+        for (int i = 0; i < products.size(); i++) {
+            row = sheet.createRow(i);
+            String[] arr = products.get(i).toString().split(",");
+            for (int  j = 0 ; j < arr.length;j++){
+                cell = row.createCell(j);
+                cell.setCellValue(arr[j]);
+            }
+        }
+        FileOutputStream fout = new FileOutputStream(file);
+        workbook.write(fout);
+        fout.close();
+    }
+    public void create_decal(File file) throws Exception{
+        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/lumiapp","root","admin");
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery("SELECT d.id,d.name,p.quantity from product_detail pd join (SELECT p.*,SUM(o.quantity) as quantity FROM orders o join product p on o.product_sku = p.sku group by o.product_sku) p on p.sku = pd.product_sku join decals d on pd.decals_id = d.id;");
+        while (rs.next()){
+            Path dir = Path.of("/image"+rs.getString(1));
+            DirectoryStream<Path> stream = Files.newDirectoryStream(dir,"*.{png,svg,jpg}");
+        }
+    }
+    public void outDecal(){
+        String filePath = "decal"+ file.getName();
+        File file = new File(filePath);
+
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

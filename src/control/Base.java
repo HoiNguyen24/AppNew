@@ -8,6 +8,10 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Scanner;
 
 public class Base extends Application {
@@ -17,7 +21,10 @@ public class Base extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws IOException {
+    public void start(Stage primaryStage) throws IOException, SQLException {
+        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/lumiapp","root","admin");
+        Statement statement = connection.createStatement();
+        statement.executeUpdate("DELETE from orders");
         Stage stage = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/src/screen/MainScr.fxml"));
         Scene scene = new Scene(root);
