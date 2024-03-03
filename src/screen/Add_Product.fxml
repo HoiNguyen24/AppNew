@@ -18,7 +18,7 @@
     <content>
       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="320.0">
          <children>
-            <Label layoutX="53.0" layoutY="82.0" text="SKU:">
+            <Label layoutX="54.0" layoutY="52.0" text="SKU(Tiktok):">
                <font>
                   <Font size="14.0" />
                </font>
@@ -48,7 +48,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="product_sku" layoutX="153.0" layoutY="79.0" />
+            <TextField fx:id="product_tiktok_sku" layoutX="153.0" layoutY="49.0" />
             <TextField fx:id="product_name" layoutX="153.0" layoutY="120.0" />
             <TextField fx:id="cloth_name" layoutX="153.0" layoutY="169.0" />
             <TextField fx:id="cloth_color" layoutX="153.0" layoutY="215.0" />
@@ -60,6 +60,12 @@
                </font>
             </Label>
             <Button layoutX="475.0" layoutY="79.0" mnemonicParsing="false" onAction="#add_decal" text="Thêm" />
+            <Label layoutX="53.0" layoutY="84.0" text="SKU(Shoppe):">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="product_shoppe_sku" layoutX="153.0" layoutY="82.0" />
          </children></AnchorPane>
     </content>
     <expandableContent>

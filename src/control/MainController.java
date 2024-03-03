@@ -25,6 +25,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import src.func.Resize;
 import src.manager.FileProductManager;
 
 
@@ -50,6 +51,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MainController extends Application implements Initializable {
+
+    private String on_file = null;
     private File file;
     FileProductManager fileProductManager = new FileProductManager();
      @FXML
@@ -113,22 +116,19 @@ public class MainController extends Application implements Initializable {
                 for (Cell cell : row) {
                     CellValue cellValue = formulaEvaluator.evaluate(cell);
                     String value = cellValue.getStringValue();
-                    if(count == 5){
+                    if (count == 5) {
                         sku = value;
-                    }
-                    else if(count == 6){
+                    } else if (count == 6) {
                         name = value;
-                    }
-                    else if(count == 7){
+                    } else if (count == 7) {
                         var = value;
-                    }
-                    else if(count == 8){
+                    } else if (count == 8) {
                         String[] arr = var.split(",");
                         System.out.println(sku + name + var);
-                        if(arr.length == 2)
-                            fileProductManager.add(new FileProductList(sku,name,arr[0],arr[1]));
+                        if (arr.length == 2)
+                            fileProductManager.add(new FileProductList(sku, name, arr[0], arr[1]));
                         else
-                            fileProductManager.add(new FileProductList(sku,name,arr[0],"default"));
+                            fileProductManager.add(new FileProductList(sku, name, arr[0], "default"));
                     }
                     count++;
                 }
@@ -161,7 +161,10 @@ public class MainController extends Application implements Initializable {
         return back;
     }
     @FXML Label on_add = new Label();
-    @FXML TextField product_sku = new TextField();
+
+    @FXML TextField product_shoppe_sku = new TextField();
+    @FXML TextField product_tiktok_sku = new TextField();
+
     @FXML TextField product_name = new TextField();
     @FXML TextField cloth_name = new TextField();
     @FXML TextField cloth_color = new TextField();
@@ -226,6 +229,9 @@ public class MainController extends Application implements Initializable {
             for (File file1: file_list){
                 try {
                     FileUtils.copyFile(file1.getAbsoluteFile(),new File(file.getAbsolutePath()+"/"+ file1.getName()) );
+                    FileInputStream fileInputStream = new FileInputStream(new File(file.getAbsolutePath()+"/"+ file1.getName()));
+                    Path path = Paths.get(file.getAbsolutePath()+"/"+ file1.getName());
+                    Resize.resize(fileInputStream,path,50,50);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -245,8 +251,9 @@ public class MainController extends Application implements Initializable {
         });
         file_list.clear();
     }
-    public void add_product() throws IOException{
+    public void add_product() throws Exception{
 //        while(onCount < fileProductManager.getProductLists().size()){
+            fileProductManager.setProductLists(check_product(fileProductManager.getProductLists()));
             FileProductList product = fileProductManager.getProductLists().get(onCount);
             Dialog<Boolean> dialog = new Dialog<>();
             FXMLLoader fxmlLoader = new FXMLLoader();
@@ -256,7 +263,10 @@ public class MainController extends Application implements Initializable {
             DialogPane dialogPane = (DialogPane) fxmlLoader.load();
             dialogPane.getButtonTypes().addAll(deleteButton,ButtonType.CANCEL);
             on_add.setText(product.toString());
-            product_sku.setText(product.getSku());
+            if(on_file.equals("tiktok"))
+               product_tiktok_sku.setText(product.getSku());
+            else
+                product_shoppe_sku.setText(product.getSku());
             product_name.setText(product.getName());
             cloth_color.setText(product.getColor());
             cloth_size.setText(product.getSize());
@@ -276,16 +286,21 @@ public class MainController extends Application implements Initializable {
                     Statement statement = null;
                     try {
                         connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/lumiapp","root","admin");
-                        PreparedStatement st = connection.prepareStatement("INSERT INTO product values (?,?,?,?,?)");
-                        st.setString(1,product_sku.getText());
-                        st.setString(2,product_name.getText());
-                        st.setString(3,cloth_name.getText());
-                        st.setString(4,cloth_size.getText());
-                        st.setString(5,cloth_color.getText());
+                        PreparedStatement st = connection.prepareStatement("INSERT INTO product(name,clothes_name,size,color) values (?,?,?,?)");
+                        st.setString(1,product_name.getText());
+                        st.setString(2,cloth_name.getText());
+                        st.setString(3,cloth_size.getText());
+                        st.setString(4,cloth_color.getText());
                         st.executeUpdate();
+                        Statement statement2 = connection.createStatement();
+                        ResultSet rs = statement2.executeQuery("SELECT count(id) from product");rs.next();
+                        PreparedStatement st_id = connection.prepareStatement("INSERT INTO product_sku values (?,?,?)");
+                        st_id.setString(1,rs.getString(1));
+                        st_id.setString(2,product_tiktok_sku.getText());
+                        st_id.setString(3,product_shoppe_sku.getText());
                         for (Decal decal: decal_list){
                             PreparedStatement statement1 = connection.prepareStatement("INSERT INTO product_detail values (?,?)");
-                            statement1.setString(1,product_sku.getText());
+                            statement1.setString(1,rs.getString(1));
                             statement1.setString(2, String.valueOf(decal.getId()));
                             statement1.executeUpdate();
                         }
@@ -344,16 +359,23 @@ public class MainController extends Application implements Initializable {
         try {
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/lumiapp","root","admin");
             Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT p.*,SUM(o.quantity) FROM orders o join product p on o.product_sku = p.sku group by o.product_sku");
-            while(rs.next()){
-                products.add(new Product(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getLong(6)));
+            Statement statement1 = connection.createStatement();
+            ResultSet order = statement.executeQuery("SELECT product_sku,SUM(quantity) FROM orders group by product_sku");
+            while(order.next()){
+                ResultSet rs =null;
+                if(on_file.equals("tiktok"))
+                    rs = statement1.executeQuery("SELECT ps.tiktok_sku,p.name,p.clothes_name,p.color,p.size FROM product p join products_sku ps on ps.id = p.id where ps.tiktok_sku = " + order.getString(1)+";");
+                if(rs.next())
+                  products.add(new Product(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),order.getLong(2)));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        System.out.println(products.toString());
         refresh(products);
     }
     public void file_tiktok(ActionEvent event) throws Exception{
+        on_file = "tiktok";
         choosing_file();
         Dialog<Boolean> dialog = new Dialog<>();
         FXMLLoader fxmlLoader = new FXMLLoader();
@@ -372,6 +394,7 @@ public class MainController extends Application implements Initializable {
         Optional<Boolean> result= dialog.showAndWait();
         result.ifPresent(bool ->{
             if(bool){
+
             }
         });
     }
