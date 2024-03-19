@@ -4,33 +4,23 @@ import javax.xml.transform.Result;
 import java.sql.*;
 
 public class Decal {
-    public static long id_st;
-    static {
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/lumiapp","root","admin");
-            Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT COUNT(id) from decals");
-            if(rs.next())
-            id_st = Long.parseLong(rs.getString(1))+1;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
-    private long id ;
+    private int id ;
     private String name;
 
-    public Decal(String name) {
-        this.id = id_st;
+    public Decal(String name){
         this.name = name;
-        id_st++;
     }
 
-    public long getId() {
+    public Decal(String name,int id) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

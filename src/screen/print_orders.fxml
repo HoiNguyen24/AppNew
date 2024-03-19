@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<DialogPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="461.0" prefWidth="675.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+    <header>
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="43.0" prefWidth="703.0">
+         <children>
+            <Label layoutX="209.0" layoutY="4.0" text="Các đơn có thể đóng">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children></AnchorPane>
+    </header>
+    <content>
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="367.0" prefWidth="700.0">
+         <children>
+            <TableView fx:id="orderView" layoutX="43.0" layoutY="17.0" prefHeight="333.0" prefWidth="589.0">
+              <columns>
+                <TableColumn fx:id="order_sku" prefWidth="186.0" text="Mã đơn hàng" />
+                  <TableColumn fx:id="date_order" prefWidth="93.0" text="Ngày xuất" />
+                <TableColumn fx:id="order_product" prefWidth="309.0" text="Sản phẩm" />
+              </columns>
+            </TableView>
+         </children></AnchorPane>
+    </content>
+    <expandableContent>
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="320.0" />
+    </expandableContent>
+</DialogPane>

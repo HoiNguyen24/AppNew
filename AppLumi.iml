@@ -6,7 +6,7 @@
       <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src_cpy" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="openjdk-21" jdkType="JavaSDK" />
+    <orderEntry type="jdk" jdkName="jbr-17" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library" exported="">
       <library name="lib">
@@ -18,8 +18,6 @@
         <jarDirectory url="file://$USER_HOME$/Downloads/javafx-sdk-21.0.2/lib" recursive="false" />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="apache.poi" level="project" />
-    <orderEntry type="library" name="apache.poi.ooxml.lite" level="project" />
     <orderEntry type="module-library" exported="">
       <library name="java">
         <CLASSES />
@@ -47,5 +45,15 @@
     <orderEntry type="library" exported="" name="apache.poi.ooxml" level="project" />
     <orderEntry type="library" exported="" name="apache.logging.log4j.core" level="project" />
     <orderEntry type="library" exported="" name="mysql.connector.j" level="project" />
+    <orderEntry type="library" exported="" name="apache.derby" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/annotations-24.0.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>

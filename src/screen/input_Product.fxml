@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<DialogPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="897.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<DialogPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="897.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
     <header>
       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="35.0" prefWidth="897.0" />
     </header>
     <content>
       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="320.0">
          <children>
-            <TableView fx:id="tableFile" layoutX="124.0" layoutY="18.0" prefHeight="408.0" prefWidth="749.0">
+            <TableView fx:id="tableFile" layoutX="124.0" layoutY="22.0" prefHeight="408.0" prefWidth="749.0">
               <columns>
+                  <TableColumn fx:id="stt_file" prefWidth="75.0" text="Stt" />
                 <TableColumn fx:id="sku_file" prefWidth="205.0" text=" SKU" />
                 <TableColumn fx:id="name_file" prefWidth="284.0" text="Tên sản phẩm" />
                   <TableColumn fx:id="size_file" prefWidth="102.0" text="Size" />
                   <TableColumn fx:id="color_file" prefWidth="91.0" text="Màu" />
-                  <TableColumn fx:id="stt_file" prefWidth="75.0" text="Stt" />
               </columns>
             </TableView>
             <Button layoutX="47.0" layoutY="18.0" mnemonicParsing="false" onAction="#add_product" text="Nhập" />

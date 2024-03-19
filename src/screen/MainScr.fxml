@@ -7,9 +7,9 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="552.0" prefWidth="752.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.control.MainController">
+<AnchorPane prefHeight="447.0" prefWidth="752.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.control.MainController">
    <children>
-      <TableView fx:id="tableView" layoutX="108.0" layoutY="146.0" prefHeight="367.0" prefWidth="536.0">
+      <TableView fx:id="tableView" layoutX="175.0" layoutY="47.0" prefHeight="367.0" prefWidth="536.0">
         <columns>
           <TableColumn fx:id="sku" prefWidth="150.0" text="SKU" />
           <TableColumn fx:id="name" minWidth="0.0" prefWidth="160.0" text="Tên sản phẩm" />
@@ -18,12 +18,14 @@
             <TableColumn fx:id="quantity" prefWidth="75.0" text="Số lượng" />
         </columns>
       </TableView>
-      <MenuButton layoutX="108.0" layoutY="100.0" mnemonicParsing="false" text="Chọn File">
+      <MenuButton layoutX="42.0" layoutY="47.0" minWidth="100.0" mnemonicParsing="false" text="Chọn File">
         <items>
           <MenuItem mnemonicParsing="false" onAction="#file_tiktok" text="File tiktok" />
-          <MenuItem mnemonicParsing="false" text="File shoppe" />
+          <MenuItem mnemonicParsing="false" onAction="#file_shoppe" text="File shoppe" />
         </items>
       </MenuButton>
-      <Button layoutX="218.0" layoutY="100.0" mnemonicParsing="false" onAction="#out_cloth" text="Button" />
+      <Button layoutX="42.0" layoutY="94.0" minWidth="100.0" mnemonicParsing="false" onAction="#out_cloth" text="In ra file áo" />
+      <Button layoutX="42.0" layoutY="142.0" minWidth="100.0" mnemonicParsing="false" onAction="#outDecal" text="In ra file hình" />
+      <Button layoutX="42.0" layoutY="186.0" mnemonicParsing="false" onAction="#create_orders" text="Button" />
    </children>
 </AnchorPane>

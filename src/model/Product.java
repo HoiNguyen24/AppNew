@@ -1,6 +1,6 @@
 package src.model;
 
-public class Product {
+public class Product implements Cloneable{
     private String sku;
     private String name;
     private String clothes_name;
@@ -9,14 +9,24 @@ public class Product {
     private String decal_name;
     private String file_decal_name;
     private long quantity;
+    private String quantity_in;
 
-    public Product(String sku, String name, String clothes_name,String color, String size,long quantity) {
+    public String getQuantity_in() {
+        return quantity_in;
+    }
+
+    public void setQuantity_in(String quantity_in) {
+        this.quantity_in = quantity_in;
+    }
+
+    public Product(String sku, String name, String clothes_name, String color, String size, long quantity) {
         this.sku = sku;
         this.name = name;
         this.clothes_name = clothes_name;
         this.color = color;
         this.size = size;
         this.quantity = quantity;
+        quantity_in = String.valueOf(quantity);
     }
 
     public String getColor() {
@@ -33,6 +43,7 @@ public class Product {
 
     public void setQuantity(long quantity) {
         this.quantity = quantity;
+        this.quantity_in= String.valueOf(this.quantity);
     }
 
     public String getSku() {
@@ -84,7 +95,12 @@ public class Product {
     }
 
     @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+
+    @Override
     public String toString() {
-        return clothes_name+","+size+","+color+","+quantity;
+        return clothes_name+","+color+","+size+","+quantity;
     }
 }

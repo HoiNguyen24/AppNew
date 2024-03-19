@@ -25,6 +25,7 @@ public class Base extends Application {
         Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/lumiapp","root","admin");
         Statement statement = connection.createStatement();
         statement.executeUpdate("DELETE from orders");
+        statement.executeUpdate("SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));");
         Stage stage = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/src/screen/MainScr.fxml"));
         Scene scene = new Scene(root);
