@@ -20,23 +20,22 @@ public class OrderManager {
     public void create(String onfile) throws SQLException{
         Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/lumiapp","root","admin");
         Statement statement = connection.createStatement();
-        ResultSet sku_list = statement.executeQuery("SELECT order_sku,dates from orders group by order_sku");
+        ResultSet sku_list = statement.executeQuery("SELECT order_sku,dates from orders group by order_sku order by dates desc");
         while (sku_list.next()){
             Statement target = connection.createStatement();
             ResultSet product = null;
             ArrayList<Product> products = new ArrayList<>();
             if(onfile.equals("tiktok")){
-                PreparedStatement preparedStatement = connection.prepareStatement("SELECT ps.tiktok_sku,p.name,p.clothes_name,p.color,p.size,o.quantity  from orders o join product p on p.id = o.product_sku join products_sku ps on ps.id = p.id where o.order_sku = ? ");
+                PreparedStatement preparedStatement = connection.prepareStatement("SELECT ps.id,ps.tiktok_name,p.clothes_name,p.color,p.size,o.quantity  from orders o join product p on p.id = o.product_sku join products_name ps on ps.id = p.id where o.order_sku = ? ");
                 preparedStatement.setString(1,sku_list.getString(1));
                 product = preparedStatement.executeQuery();
             }
             else{
-                PreparedStatement preparedStatement = connection.prepareStatement("SELECT ps.shoppe_sku,p.name,p.clothes_name,p.color,p.size,o.quantity  from orders o join product p on p.id = o.product_sku join products_sku ps on ps.id = p.id where o.order_sku = ?");
+                PreparedStatement preparedStatement = connection.prepareStatement("SELECT ps.id,ps.shoppe_name,p.clothes_name,p.color,p.size,o.quantity  from orders o join product p on p.id = o.product_sku join products_name ps on ps.id = p.id where o.order_sku = ?");
                 preparedStatement.setString(1,sku_list.getString(1));
                 product = preparedStatement.executeQuery();
             }
             while (product.next()){
-                System.out.println("thêm sản phẩm");
                 products.add(new Product(product.getString(1),product.getString(2),product.getString(3),product.getString(4),product.getString(5),Long.parseLong(product.getString(6))));
             }
             Order order = new Order(sku_list.getString(1),products,sku_list.getString(2));

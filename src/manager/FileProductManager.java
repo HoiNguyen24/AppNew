@@ -18,13 +18,13 @@ public class FileProductManager {
 
     public boolean check(FileProductList fileProductList){
         for (FileProductList productList: productLists){
-            if(productList.getSku().equals(fileProductList.getSku())) return false;
+            if(productList.getName().equals(fileProductList.getName()) && productList.getColor().equals(fileProductList.getColor()) && productList.getSize().equals(fileProductList.getSize())) return false;
         }
         return true;
     }
     public void display(){
         for (FileProductList fileProductList: productLists){
-            System.out.println(fileProductList.getSku());
+            System.out.println(fileProductList);
         }
     }
     public void add(FileProductList fileProductList){

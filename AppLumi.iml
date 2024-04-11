@@ -55,5 +55,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" exported="" name="luhuiguo.aspose.cells" level="project" />
   </component>
 </module>

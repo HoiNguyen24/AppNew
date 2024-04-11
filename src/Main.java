@@ -23,15 +23,18 @@ import java.util.Iterator;
 import java.util.Set;
 
 public class Main {
-    public static void main(String[] args) throws IOException, SQLException {
-        FileProductManager fileProductManager = new FileProductManager();
-        String on_file = "tiktok";
-        XSSFWorkbook wb = new XSSFWorkbook(new FileInputStream("323232 (2).xlsx"));
-        XSSFSheet sheet = wb.getSheetAt(0);
-        for (int  i = 0 ; i < sheet.getLastRowNum();i++){
-             for (int j = 0 ; j < sheet.getRow(i).getLastCellNum();j++){
-                 System.out.println(j+":"+sheet.getRow(i).getCell(j).toString());
-             }
-        }
+    public static void main(String[] args) {
+        Base.main(args);
+//        XSSFWorkbook wb = null;
+//        try {
+//            wb = new XSSFWorkbook(new FileInputStream("Đang giao đơn hàng-2024-03-30-09_18 (1).xlsx"));
+//            XSSFSheet sheet = wb.getSheetAt(0);
+//            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/lumiapp","root","admin");
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
     }
+
 }

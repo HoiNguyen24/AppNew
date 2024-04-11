@@ -7,14 +7,14 @@ public class Order {
     private String sku;
     private ArrayList<Product> products;
 
-    private String date;
+    private String dates;
 
     private String products_name;
 
     public Order(String sku, ArrayList<Product> products, String date) {
         this.sku = sku;
         this.products = products;
-        this.date = date;
+        this.dates = date;
         this.products_name = getNames();
     }
 
@@ -28,8 +28,16 @@ public class Order {
 
     public Order(String sku,String date) {
         this.sku = sku;
-        this.date = date;
+        this.dates = date;
         products = new ArrayList<>();
+    }
+
+    public String getDates() {
+        return dates;
+    }
+
+    public void setDates(String dates) {
+        this.dates = dates;
     }
 
     public String getSku() {
@@ -51,7 +59,7 @@ public class Order {
     public String getNames(){
         StringBuffer stringBuffer = new StringBuffer();
         for (Product product: products){
-            stringBuffer.append(product.getName()+","+product.getQuantity()+"\n");
+            stringBuffer.append(product.getName()+","+product.getSize()+","+product.getColor()+","+product.getQuantity()+"\n");
         }
         return stringBuffer.toString();
     }
@@ -64,7 +72,7 @@ public class Order {
         return "Order{" +
                 "sku='" + sku + '\'' +
                 ", products=" + products +
-                ", date='" + date + '\'' +
+                ", date='" + dates + '\'' +
                 ", products_name='" + products_name + '\'' +
                 '}';
     }

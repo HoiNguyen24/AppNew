@@ -7,25 +7,26 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="447.0" prefWidth="752.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.control.MainController">
+<AnchorPane prefHeight="499.0" prefWidth="906.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.control.MainController">
    <children>
-      <TableView fx:id="tableView" layoutX="175.0" layoutY="47.0" prefHeight="367.0" prefWidth="536.0">
+      <TableView fx:id="tableView" layoutX="169.0" layoutY="73.0" prefHeight="437.0" prefWidth="719.0">
         <columns>
-          <TableColumn fx:id="sku" prefWidth="150.0" text="SKU" />
-          <TableColumn fx:id="name" minWidth="0.0" prefWidth="160.0" text="Tên sản phẩm" />
-            <TableColumn fx:id="color" prefWidth="75.0" text="Màu" />
-            <TableColumn fx:id="size" prefWidth="75.0" text="Size" />
-            <TableColumn fx:id="quantity" prefWidth="75.0" text="Số lượng" />
+          <TableColumn fx:id="sku" prefWidth="87.0" text="Số thứ tự" />
+          <TableColumn fx:id="name" minWidth="0.0" prefWidth="346.0" text="Tên sản phẩm" />
+            <TableColumn fx:id="color" prefWidth="158.0" text="Màu" />
+            <TableColumn fx:id="size" prefWidth="54.0" text="Size" />
+            <TableColumn fx:id="quantity" prefWidth="73.0" text="Số lượng" />
         </columns>
       </TableView>
-      <MenuButton layoutX="42.0" layoutY="47.0" minWidth="100.0" mnemonicParsing="false" text="Chọn File">
+      <MenuButton layoutX="42.0" layoutY="67.0" minWidth="100.0" mnemonicParsing="false" text="Nhập File">
         <items>
           <MenuItem mnemonicParsing="false" onAction="#file_tiktok" text="File tiktok" />
           <MenuItem mnemonicParsing="false" onAction="#file_shoppe" text="File shoppe" />
         </items>
       </MenuButton>
-      <Button layoutX="42.0" layoutY="94.0" minWidth="100.0" mnemonicParsing="false" onAction="#out_cloth" text="In ra file áo" />
-      <Button layoutX="42.0" layoutY="142.0" minWidth="100.0" mnemonicParsing="false" onAction="#outDecal" text="In ra file hình" />
-      <Button layoutX="42.0" layoutY="186.0" mnemonicParsing="false" onAction="#create_orders" text="Button" />
+      <Button layoutX="42.0" layoutY="344.0" minWidth="100.0" mnemonicParsing="false" onAction="#out_cloth" text="In ra file áo" />
+      <Button layoutX="42.0" layoutY="396.0" minWidth="100.0" mnemonicParsing="false" onAction="#outDecal" text="In ra file hình" />
+      <Button layoutX="26.0" layoutY="449.0" mnemonicParsing="false" onAction="#create_orders" text="In ra đơn có thể đóng" />
+      <Button layoutX="15.0" layoutY="279.0" mnemonicParsing="false" onAction="#input_product" text=" Nhập thông tin còn thiếu" />
    </children>
 </AnchorPane>
