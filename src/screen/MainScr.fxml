@@ -24,9 +24,8 @@
           <MenuItem mnemonicParsing="false" onAction="#file_shoppe" text="File shoppe" />
         </items>
       </MenuButton>
-      <Button layoutX="42.0" layoutY="344.0" minWidth="100.0" mnemonicParsing="false" onAction="#out_cloth" text="In ra file áo" />
-      <Button layoutX="42.0" layoutY="396.0" minWidth="100.0" mnemonicParsing="false" onAction="#outDecal" text="In ra file hình" />
       <Button layoutX="26.0" layoutY="449.0" mnemonicParsing="false" onAction="#create_orders" text="In ra đơn có thể đóng" />
       <Button layoutX="15.0" layoutY="279.0" mnemonicParsing="false" onAction="#input_product" text=" Nhập thông tin còn thiếu" />
+      <Button layoutX="26.0" layoutY="363.0" mnemonicParsing="false" onAction="#out" text="Xuất file  áo và hình " />
    </children>
 </AnchorPane>

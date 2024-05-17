@@ -16,7 +16,7 @@
     <content>
       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="444.0" prefWidth="642.0">
          <children>
-            <TableView fx:id="tableFile" layoutX="20.0" layoutY="29.0" prefHeight="408.0" prefWidth="784.0">
+            <TableView fx:id="tableFile" layoutX="20.0" layoutY="29.0" onMousePressed="#chooseOncount" prefHeight="408.0" prefWidth="784.0">
               <columns>
                 <TableColumn fx:id="stt_file" prefWidth="65.0" text="Số thứ tự" />
                 <TableColumn fx:id="name_file" prefWidth="424.0" text="Tên sản phẩm" />
